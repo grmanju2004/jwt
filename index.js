@@ -25,7 +25,7 @@ app.post("/signin", (req, res) => {
     const password = req.body.password;
 
     const user = users.find(user => user.username === username && user.password === password);
-
+    
     if (user) {
         const token = jwt.sign({
             username: user.username
@@ -35,6 +35,8 @@ app.post("/signin", (req, res) => {
         res.send({          
             token
         })
+        res.header("jwt", token);
+        res.header("random", "manju");
         console.log(users);
     } else {
         res.status(403).send({
@@ -42,7 +44,7 @@ app.post("/signin", (req, res) => {
         })
     }
 });
-                
+
 app.get("/me", (req, res) => {
     const token = req.headers.authorization;
     const userDetails = jwt.verify(token, JWT_SECRET);
