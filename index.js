@@ -35,8 +35,7 @@ app.post("/signin", (req, res) => {
         res.send({          
             token
         })
-        res.header("jwt", token);
-        res.header("random", "manju");
+    
         console.log(users);
     } else {
         res.status(403).send({
